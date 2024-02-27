@@ -66,6 +66,8 @@ class BlogService(
 
         return result
     }
+
+    fun searchWordRank(): List<WordCount> = wordRepository.findTop10ByOrderBycntDesc();
 }
 
 //private enum class ExceptionMsg(val msg: String) {
