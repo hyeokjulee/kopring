@@ -4,5 +4,5 @@ import com.example.study.blog.entity.WordCount
 import org.springframework.data.repository.CrudRepository
 
 interface WordRepository : CrudRepository<WordCount, String> {
-    fun findTop10ByOrderBycntDesc(): List<WordCount>
+    fun findTop10ByOrderByCntDesc(): List<WordCount>
 }

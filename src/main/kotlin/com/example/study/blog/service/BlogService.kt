@@ -58,7 +58,7 @@ class BlogService(
 
         val result = response.block()
 
-        val lowQuery: String = blogDto.query!!.lowercase()
+        val lowQuery: String = blogDto.query.lowercase()
         val wordCount: WordCount = wordRepository.findById(lowQuery).orElse(WordCount(lowQuery))
         wordCount.cnt++
 
@@ -67,7 +67,7 @@ class BlogService(
         return result
     }
 
-    fun searchWordRank(): List<WordCount> = wordRepository.findTop10ByOrderBycntDesc();
+    fun searchWordRank(): List<WordCount> = wordRepository.findTop10ByOrderByCntDesc();
 }
 
 //private enum class ExceptionMsg(val msg: String) {

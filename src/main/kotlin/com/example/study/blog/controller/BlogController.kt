@@ -20,6 +20,6 @@ class BlogController(
         return result
     }
 
-    @GetMapping("rank")
+    @GetMapping("/rank")
     fun searchWordRank(): List<WordCount> = blogService.searchWordRank()
 }
