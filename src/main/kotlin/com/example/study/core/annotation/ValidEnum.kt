@@ -25,6 +25,6 @@ class ValidEnumValidator : ConstraintValidator<ValidEnum, Any> {
         if (value == null) {
             return true // null values are validated with the @NotNull annotation
         }
-        return enumValues.any { it.name == value.toString() }
+        return enumValues.any { it.name.equals(value.toString(), true)  }
     }
 }
