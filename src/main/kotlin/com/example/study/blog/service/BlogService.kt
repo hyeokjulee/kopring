@@ -1,7 +1,8 @@
 package com.example.study.blog.service
 
 import com.example.study.blog.dto.BlogDto
-import com.example.study.core.exception.InvalidInputException
+import com.example.study.blog.entity.WordCount
+import com.example.study.blog.repository.WordRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -10,7 +11,9 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
 
 @Service
-class BlogService{
+class BlogService(
+    val wordRepository: WordRepository
+) {
     @Value("\${REST_API_KEY}")
     lateinit var restApiKey: String
 
@@ -54,6 +57,12 @@ class BlogService{
             .bodyToMono<String>()
 
         val result = response.block()
+
+        val lowQuery: String = blogDto.query!!.lowercase()
+        val wordCount: WordCount = wordRepository.findById(lowQuery).orElse(WordCount(lowQuery))
+        wordCount.cnt++
+
+        wordRepository.save(wordCount);
 
         return result
     }
